@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Farhawn & Ayaman | Sana & Allauddin - Wedding Invitation</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display, Great Vibes, Cinzel, Inter, and Amiri (for Bismillah) -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;1,400&family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            maroon: '#3A0005',     // Deep Cinematic Maroon
+                            brown: '#2C1A14',      // Rich dark brown
+                            gold: '#D4AF37',       // Classic Gold
+                            goldlight: '#F9E596',  // Light glowing gold
+                            cream: '#FFFDD0',      // Cream for roses/accents
+                            orchid: '#FDFBF7',     // Pure warm white for orchids
+                            dark: '#110805'        // Near black for contrast
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        display: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif']
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-fast': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'glow 3s infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.6', filter: 'drop-shadow(0 0 5px rgba(212, 175, 55, 0.4))' },
+                            '100%': { opacity: '1', filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.8))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #110805;
+            color: #FFFDD0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Scrollbar styling --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #110805; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+
+        /* --- Cinematic Bokeh / Gold Dust Effect --- */
+        .bokeh-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1; /* Behind curtains and content */
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(249, 229, 150, 0.8) 0%, rgba(212, 175, 55, 0) 70%);
+            border-radius: 50%;
+            animation: drift linear infinite;
+        }
+        @keyframes drift {
+            0% { transform: translateY(110vh) translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) translateX(50px) scale(1.5); opacity: 0; }
+        }
+
+        /* --- Theater Curtain Styles --- */
+        :root { --scroll-progress: 0; }
+        .curtain-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            display: flex;
+        }
+        .curtain-panel {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, #240003 0%, #4A0407 30%, #5C0006 50%, #4A0407 70%, #240003 100%);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            will-change: transform;
+            position: relative;
+        }
+        .curtain-panel::after {
+            content: '';
+            position: absolute;
+            top: 0; height: 100%; width: 15px;
+            background: repeating-linear-gradient(to bottom, #D4AF37, #D4AF37 4px, transparent 4px, transparent 8px);
+            opacity: 0.8;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        #curtain-left {
+            transform: translateX(calc(-100% * var(--scroll-progress)));
+            border-right: 4px solid #D4AF37;
+        }
+        #curtain-left::after { right: -15px; }
+        
+        #curtain-right {
+            transform: translateX(calc(100% * var(--scroll-progress)));
+            border-left: 4px solid #D4AF37;
+        }
+        #curtain-right::after { left: -15px; }
+
+        /* The space to allow scrolling down to open curtains */
+        .scroll-space { height: 80vh; width: 100%; }
+
+        /* --- Core Layout & Textures --- */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            background: radial-gradient(circle at top, #3A0005 0%, #110805 100%);
+            border-top: 2px solid #D4AF37;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.8);
+            border-radius: 40px 40px 0 0;
+            margin-top: -20px; /* Slight overlap */
+        }
+        
+        /* Scratch Card Canvas */
+        #scratch-canvas {
+            touch-action: none; /* Prevent scrolling when scratching on mobile */
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-theme-gold selection:text-theme-dark">
+
+    <!-- Cinematic Bokeh Particles (JS generated) -->
+    <div class="bokeh-container" id="bokeh-container"></div>
+
+    <!-- Intro Prompt (Fades out on scroll) -->
+    <div id="intro-overlay" class="fixed inset-0 z-[60] flex flex-col items-center justify-center pointer-events-none transition-opacity duration-500 bg-black/50 backdrop-blur-sm px-4">
+        <p class="font-arabic text-theme-gold text-2xl md:text-4xl mb-4 animate-pulse-glow">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+        <h2 class="font-display text-theme-cream text-sm md:text-lg tracking-[0.3em] uppercase mb-6 text-center">The Wedding Celebration of</h2>
+        
+        <h1 class="font-script text-5xl md:text-7xl text-theme-goldlight mb-2 text-center drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">Farhawn <span class="font-display text-3xl md:text-4xl text-theme-cream mx-2">&amp;</span> Ayaman</h1>
+        
+        <span class="font-display text-theme-cream text-sm md:text-base my-4 block text-center uppercase tracking-widest">And</span>
+        
+        <h1 class="font-script text-5xl md:text-7xl text-theme-goldlight mb-8 text-center drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">Sana <span class="font-display text-3xl md:text-4xl text-theme-cream mx-2">&amp;</span> Allauddin</h1>
+        
+        <div class="flex flex-col items-center animate-bounce mt-2 md:mt-4">
+            <span class="font-sans text-xs tracking-[0.2em] text-theme-gold mb-2 uppercase">Scroll to Open</span>
+            <svg class="w-6 h-6 text-theme-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </div>
+
+    <!-- The Theater Curtains -->
+    <div class="curtain-wrapper" id="curtain-wrapper">
+        <div id="curtain-left" class="curtain-panel"></div>
+        <div id="curtain-right" class="curtain-panel"></div>
+    </div>
+
+    <!-- Scroll Spacer to trigger curtain open -->
+    <div class="scroll-space"></div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content pb-20 px-4 md:px-8">
+        
+        <!-- Header Text -->
+        <section class="max-w-5xl mx-auto pt-24 pb-12 text-center relative z-20">
+            <p class="font-serif italic text-theme-goldlight text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-12 opacity-90 px-4">
+                "And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."<br>
+                <span class="block mt-2 text-xs font-sans tracking-widest text-theme-gold/70 uppercase">(Quran 30:21)</span>
+            </p>
+
+            <h3 class="font-display text-xs md:text-sm tracking-[0.4em] text-theme-cream uppercase mb-8">Together with their families</h3>
+            
+            <!-- Event 1: Reception -->
+            <div class="mb-10">
+                <p class="font-serif text-theme-gold text-base md:text-lg mb-6 px-4">Request the honor of your presence at the Wedding Reception of</p>
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <h1 class="font-script text-5xl sm:text-6xl md:text-7xl text-theme-goldlight drop-shadow-2xl leading-none whitespace-nowrap">Farhawn</h1>
+                    <span class="font-display text-3xl sm:text-4xl text-theme-cream my-1">&amp;</span>
+                    <h1 class="font-script text-5xl sm:text-6xl md:text-7xl text-theme-goldlight drop-shadow-2xl leading-none whitespace-nowrap">Ayaman</h1>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center justify-center space-x-4 md:space-x-6 my-12 opacity-80">
+                <div class="h-px bg-gradient-to-r from-transparent via-theme-gold to-transparent w-20 md:w-32"></div>
+                <span class="font-display text-theme-gold tracking-[0.3em] uppercase text-xs md:text-sm">And</span>
+                <div class="h-px bg-gradient-to-r from-transparent via-theme-gold to-transparent w-20 md:w-32"></div>
+            </div>
+
+            <!-- Event 2: Ceremony -->
+            <div class="mb-8">
+                <p class="font-serif text-theme-gold text-base md:text-lg mb-6 px-4">The Wedding Ceremony of</p>
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <h1 class="font-script text-5xl sm:text-6xl md:text-7xl text-theme-goldlight drop-shadow-2xl leading-none whitespace-nowrap">Sana</h1>
+                    <span class="font-display text-3xl sm:text-4xl text-theme-cream my-1">&amp;</span>
+                    <h1 class="font-script text-5xl sm:text-6xl md:text-7xl text-theme-goldlight drop-shadow-2xl leading-none whitespace-nowrap">Allauddin</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- LUXURY SVG ILLUSTRATION -->
+        <section class="flex justify-center my-8 relative z-20 max-w-3xl mx-auto">
+            <!-- Background Glow for SVG -->
+            <div class="absolute inset-0 bg-theme-gold blur-[100px] opacity-10 rounded-full"></div>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" class="w-full max-w-lg h-auto filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.6)]">
+                <defs>
+                    <!-- Rich Lighting Gradients -->
+                    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#5C0006" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#110805" stop-opacity="0"/>
+                    </radialGradient>
+                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#F9E596" />
+                        <stop offset="50%" stop-color="#D4AF37" />
+                        <stop offset="100%" stop-color="#AA8C2C" />
+                    </linearGradient>
+                    <!-- Drop Shadows -->
+                    <filter id="shadowHeavy" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="15" stdDeviation="10" flood-opacity="0.5"/>
+                    </filter>
+                    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity="0.3"/>
+                    </filter>
+                </defs>
+
+                <!-- Cinematic Backdrop Glow -->
+                <rect width="600" height="700" fill="url(#bgGlow)"/>
+
+                <!-- ================= ARCHWAY & FLORALS ================= -->
+                <!-- Main Arch Pillars -->
+                <path d="M 80 150 C 80 50, 520 50, 520 150 L 520 650 L 80 650 Z" fill="none" stroke="url(#goldGradient)" stroke-width="4" opacity="0.3"/>
+                <path d="M 110 170 C 110 90, 490 90, 490 170 L 490 650 L 110 650 Z" fill="#240003" stroke="url(#goldGradient)" stroke-width="8" filter="url(#shadowHeavy)"/>
+                
+                <!-- Inner Arch Texture/Lines -->
+                <path d="M 130 180 C 130 110, 470 110, 470 180 L 470 650" fill="none" stroke="#D4AF37" stroke-dasharray="10,10" stroke-width="2" opacity="0.5"/>
+
+                <!-- Top Center Floral Cluster (Cream Roses & White Orchids) -->
+                <g transform="translate(300, 100)">
+                    <!-- Leaves -->
+                    <path d="M 0 0 Q -40 -30 -60 10 Q -20 20 0 0" fill="#2E4C23" opacity="0.8"/>
+                    <path d="M 0 0 Q 40 -30 60 10 Q 20 20 0 0" fill="#2E4C23" opacity="0.8"/>
+                    <path d="M 0 0 Q -70 20 -50 60 Q -20 40 0 0" fill="#1B3311"/>
+                    <path d="M 0 0 Q 70 20 50 60 Q 20 40 0 0" fill="#1B3311"/>
+                    
+                    <!-- White Orchids -->
+                    <path d="M -80 30 C -90 10, -60 0, -50 20 C -40 0, -10 10, -20 30 C -10 50, -40 60, -50 40 C -60 60, -90 50, -80 30 Z" fill="#FDFBF7" filter="url(#shadowSoft)"/>
+                    <circle cx="-50" cy="30" r="5" fill="#D4AF37"/>
+                    
+                    <path d="M 80 30 C 90 10, 60 0, 50 20 C 40 0, 10 10, 20 30 C 10 50, 40 60, 50 40 C 60 60, 90 50, 80 30 Z" fill="#FDFBF7" filter="url(#shadowSoft)"/>
+                    <circle cx="50" cy="30" r="5" fill="#D4AF37"/>
+
+                    <!-- Cream Roses -->
+                    <circle cx="0" cy="10" r="35" fill="#FFFDD0" filter="url(#shadowSoft)"/>
+                    <path d="M -10 5 C 0 -15, 20 5, 5 20 C -15 15, -10 -5, -5 5" fill="none" stroke="#E6D3A8" stroke-width="4"/>
+                    
+                    <circle cx="-35" cy="-5" r="25" fill="#FFFDD0" filter="url(#shadowSoft)"/>
+                    <path d="M -40 -10 C -30 -25, -15 -10, -25 5" fill="none" stroke="#E6D3A8" stroke-width="3"/>
+                    
+                    <circle cx="35" cy="-5" r="25" fill="#FFFDD0" filter="url(#shadowSoft)"/>
+                    <path d="M 30 -10 C 40 -25, 55 -10, 45 5" fill="none" stroke="#E6D3A8" stroke-width="3"/>
+                </g>
+
+                <!-- Side Florals Left -->
+                <g transform="translate(110, 300)">
+                    <path d="M 0 0 Q -30 -40 -10 -70 Q 10 -40 0 0" fill="#2E4C23"/>
+                    <circle cx="-15" cy="-20" r="25" fill="#FFFDD0" filter="url(#shadowSoft)"/>
+                    <path d="M -20 -25 C -10 -40, 5 -20, -5 -5" fill="none" stroke="#E6D3A8" stroke-width="3"/>
+                    <circle cx="10" cy="-40" r="18" fill="#FDFBF7"/>
+                </g>
+                
+                <!-- Side Florals Right -->
+                <g transform="translate(490, 300)">
+                    <path d="M 0 0 Q 30 -40 10 -70 Q -10 -40 0 0" fill="#2E4C23"/>
+                    <circle cx="15" cy="-20" r="25" fill="#FFFDD0" filter="url(#shadowSoft)"/>
+                    <path d="M 20 -25 C 10 -40, -5 -20, 5 -5" fill="none" stroke="#E6D3A8" stroke-width="3"/>
+                    <circle cx="-10" cy="-40" r="18" fill="#FDFBF7"/>
+                </g>
+
+                <!-- Hanging Lanterns -->
+                <g stroke="url(#goldGradient)" stroke-width="2">
+                    <line x1="170" y1="140" x2="170" y2="250" />
+                    <path d="M 155 250 L 185 250 L 175 290 L 165 290 Z" fill="url(#goldGradient)"/>
+                    <circle cx="170" cy="300" r="6" fill="#F9E596" filter="url(#shadowSoft)"/>
+                    
+                    <line x1="430" y1="140" x2="430" y2="210" />
+                    <path d="M 415 210 L 445 210 L 435 250 L 425 250 Z" fill="url(#goldGradient)"/>
+                    <circle cx="430" cy="260" r="6" fill="#F9E596" filter="url(#shadowSoft)"/>
+                </g>
+
+                <!-- ================= GROOM (Left) ================= -->
+                <g transform="translate(190, 240)">
+                    <!-- Groom Shadow -->
+                    <ellipse cx="60" cy="400" rx="40" ry="10" fill="#000" opacity="0.4" filter="url(#shadowSoft)"/>
+                    
+                    <!-- Shoes -->
+                    <path d="M 40 395 C 30 395, 30 405, 45 405 L 55 405 C 55 395, 45 395, 40 395 Z" fill="#0A0A0A"/>
+                    <path d="M 70 395 C 80 395, 80 405, 65 405 L 55 405 C 55 395, 65 395, 70 395 Z" fill="#0A0A0A"/>
+                    
+                    <!-- Pants -->
+                    <path d="M 38 230 L 72 230 L 75 395 L 55 395 L 55 270 L 55 395 L 35 395 Z" fill="#161616"/>
+                    
+                    <!-- Sherwani/Suit Jacket (Rich Maroon/Black) -->
+                    <path d="M 20 70 C 40 50, 70 50, 90 70 L 105 200 L 70 240 L 40 240 L 5 200 Z" fill="#1A0A0B" filter="url(#shadowSoft)"/>
+                    <path d="M 20 70 C 40 50, 70 50, 90 70 L 100 240 L 10 240 Z" fill="#120506"/> <!-- Jacket Layer -->
+                    
+                    <!-- Collar & Pocket Square -->
+                    <path d="M 45 60 L 65 60 L 65 80 L 45 80 Z" fill="#240003"/>
+                    <path d="M 75 110 L 85 110 L 80 100 Z" fill="#D4AF37"/> <!-- Gold Pocket Square -->
+
+                    <!-- Sleeves & Hands -->
+                    <!-- Left Arm -->
+                    <path d="M 20 70 C 0 110, -10 160, 10 190 L 25 180 C 10 150, 15 100, 30 80 Z" fill="#120506"/>
+                    <circle cx="15" cy="195" r="10" fill="#EAD2B8"/> <!-- Skin -->
+                    
+                    <!-- Head & Neck -->
+                    <rect x="45" y="30" width="20" height="30" fill="#EAD2B8"/>
+                    <ellipse cx="55" cy="15" rx="25" ry="32" fill="#EAD2B8"/>
+                    <!-- Hair -->
+                    <path d="M 30 15 C 30 -20, 80 -20, 80 15 C 75 -5, 60 -10, 55 0 C 50 -10, 35 -5, 30 15 Z" fill="#111"/>
+                </g>
+
+                <!-- ================= BRIDE (Right) ================= -->
+                <g transform="translate(300, 220)">
+                    <!-- Bride Shadow -->
+                    <ellipse cx="60" cy="420" rx="70" ry="15" fill="#000" opacity="0.4" filter="url(#shadowSoft)"/>
+                    
+                    <!-- Flowing Gown Skirt -->
+                    <path d="M 30 170 C 30 170, -40 380, -20 420 C 0 440, 120 440, 140 420 C 160 380, 90 170, 90 170 Z" fill="#FDFBF7" filter="url(#shadowHeavy)"/>
+                    
+                    <!-- Dress Folds (Bezier curves for elegance) -->
+                    <path d="M 40 220 Q -10 350, 10 425" fill="none" stroke="#E6D3A8" stroke-width="2" opacity="0.4"/>
+                    <path d="M 60 200 Q 40 350, 60 430" fill="none" stroke="#E6D3A8" stroke-width="2" opacity="0.5"/>
+                    <path d="M 80 220 Q 110 350, 100 425" fill="none" stroke="#E6D3A8" stroke-width="2" opacity="0.4"/>
+                    
+                    <!-- Bodice/Torso -->
+                    <path d="M 40 90 C 30 130, 25 160, 30 170 L 90 170 C 95 160, 90 130, 80 90 Z" fill="#FFFFFF"/>
+                    
+                    <!-- Gold Belt/Waistband -->
+                    <path d="M 30 170 Q 60 180, 90 170" fill="none" stroke="url(#goldGradient)" stroke-width="6"/>
+
+                    <!-- Right Arm holding bouquet -->
+                    <path d="M 80 90 C 110 110, 120 150, 100 170 L 85 155 C 100 140, 95 110, 80 100 Z" fill="#FFFFFF"/>
+
+                    <!-- Hijab / Headpiece -->
+                    <!-- Back Drape -->
+                    <path d="M 75 40 C 100 60, 110 110, 85 140 L 70 120 C 90 100, 85 60, 75 40 Z" fill="#FDFBF7"/>
+                    <!-- Main Hijab Wrap -->
+                    <path d="M 75 30 C 40 30, 35 60, 35 85 C 35 110, 45 130, 60 130 C 75 130, 85 110, 85 85 C 85 60, 80 30, 75 30 Z" fill="#FFFFFF" filter="url(#shadowSoft)"/>
+                    
+                    <!-- Gold Headpiece/Tiara accent -->
+                    <path d="M 45 45 Q 60 60, 75 45" fill="none" stroke="url(#goldGradient)" stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- Hands & Bouquet -->
+                    <ellipse cx="70" cy="165" rx="8" ry="12" fill="#EAD2B8" transform="rotate(-30, 70, 165)"/>
+                    
+                    <!-- Rich Cream/Maroon Bouquet -->
+                    <g transform="translate(50, 160)">
+                        <circle cx="10" cy="10" r="25" fill="#4A0407"/> <!-- Dark maroon base -->
+                        <circle cx="0" cy="0" r="15" fill="#FFFDD0"/>  <!-- Cream Rose -->
+                        <circle cx="20" cy="-5" r="12" fill="#FDFBF7"/> <!-- White Orchid -->
+                        <circle cx="25" cy="15" r="14" fill="#D4AF37"/>  <!-- Gold accent leaf -->
+                        <circle cx="5" cy="20" r="12" fill="#FFFDD0"/>
+                        <!-- Ribbon -->
+                        <path d="M 10 30 Q 15 50 30 70" fill="none" stroke="#FDFBF7" stroke-width="3"/>
+                        <path d="M 15 25 Q 5 50 -10 60" fill="none" stroke="#FDFBF7" stroke-width="3"/>
+                    </g>
+                </g>
+            </svg>
+        </section>
+
+        <!-- ================= DATE, TIME & SCRATCH CARD ================= -->
+        <section class="max-w-2xl mx-auto my-16 text-center relative z-20">
+            <h3 class="font-display text-2xl text-theme-gold mb-6 uppercase tracking-widest">The Celebration</h3>
+            
+            <p class="font-sans text-theme-cream/80 text-sm mb-4 px-4">Gently scratch the golden heart below to reveal the date and time of the events.</p>
+
+            <!-- Scratch Card Container -->
+            <div id="scratch-container" class="relative mx-auto w-72 h-72 md:w-80 md:h-80 flex items-center justify-center select-none mt-8">
+                
+                <!-- Hidden Content -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none pb-8">
+                    <h2 class="font-serif text-2xl md:text-3xl text-theme-cream font-bold mb-2 drop-shadow-md">
+                        Dec 27, 2026
+                    </h2>
+                    <p class="font-display text-sm md:text-base text-theme-goldlight tracking-[0.2em] uppercase text-center px-4">
+                        8:00 PM<br>Onwards
+                    </p>
+                    <div class="w-12 h-1 bg-theme-gold mt-3 rounded-full"></div>
+                </div>
+
+                <!-- Canvas Overlay -->
+                <canvas id="scratch-canvas" class="absolute inset-0 z-10 cursor-pointer transition-opacity duration-1000"></canvas>
+            </div>
+        </section>
+
+        <!-- ================= COUNTDOWN TIMER ================= -->
+        <section class="max-w-4xl mx-auto my-24 py-12 relative z-20 border-y border-theme-gold/30">
+            <h3 class="font-script text-5xl md:text-6xl text-theme-goldlight text-center mb-12 drop-shadow-lg">Awaiting the Moment</h3>
+            
+            <div id="countdown-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
+                <!-- Days -->
+                <div class="flex flex-col items-center justify-center p-6 bg-theme-brown/50 border border-theme-gold/20 rounded-xl backdrop-blur-sm shadow-lg shadow-black/50">
+                    <span id="days" class="font-serif text-5xl md:text-6xl text-theme-cream font-bold mb-2">00</span>
+                    <span class="font-display text-xs tracking-[0.2em] text-theme-gold uppercase">Days</span>
+                </div>
+                <!-- Hours -->
+                <div class="flex flex-col items-center justify-center p-6 bg-theme-brown/50 border border-theme-gold/20 rounded-xl backdrop-blur-sm shadow-lg shadow-black/50">
+                    <span id="hours" class="font-serif text-5xl md:text-6xl text-theme-cream font-bold mb-2">00</span>
+                    <span class="font-display text-xs tracking-[0.2em] text-theme-gold uppercase">Hours</span>
+                </div>
+                <!-- Minutes -->
+                <div class="flex flex-col items-center justify-center p-6 bg-theme-brown/50 border border-theme-gold/20 rounded-xl backdrop-blur-sm shadow-lg shadow-black/50">
+                    <span id="minutes" class="font-serif text-5xl md:text-6xl text-theme-cream font-bold mb-2">00</span>
+                    <span class="font-display text-xs tracking-[0.2em] text-theme-gold uppercase">Minutes</span>
+                </div>
+                <!-- Seconds -->
+                <div class="flex flex-col items-center justify-center p-6 bg-theme-brown/50 border border-theme-gold/20 rounded-xl backdrop-blur-sm shadow-lg shadow-black/50">
+                    <span id="seconds" class="font-serif text-5xl md:text-6xl text-theme-cream font-bold mb-2">00</span>
+                    <span class="font-display text-xs tracking-[0.2em] text-theme-gold uppercase">Seconds</span>
+                </div>
+            </div>
+
+            <div id="countdown-expired" class="hidden text-center py-8">
+                <p class="font-script text-5xl text-theme-goldlight animate-pulse-glow">The Celebrations have Begun!</p>
+            </div>
+        </section>
+
+        <!-- ================= LOCATION & MAP ================= -->
+        <section class="max-w-3xl mx-auto my-24 text-center relative z-20 px-4">
+            <h3 class="font-display text-3xl md:text-4xl text-theme-cream mb-4 uppercase tracking-[0.1em]">
+                
+            </h3>
+            <h4 class="font-serif text-2xl md:text-3xl text-theme-goldlight mb-4">Aryan Banquet and Lodge</h4>
+            
+            <p class="font-sans text-theme-cream/80 leading-relaxed mb-8 max-w-sm mx-auto">
+                9/2, Dr. HK CHateerjee Street, Belur, <br>
+                Howrah, West Bengal 711202
+            </p>
+
+            <!-- Google Maps Embed -->
+            <div class="w-full h-72 md:h-96 rounded-2xl overflow-hidden border-2 border-theme-gold/40 shadow-[0_10px_30px_rgba(0,0,0,0.8)] filter grayscale-[20%] sepia-[30%]">
+                <iframe 
+                    src="https://maps.app.goo.gl/6okcT2xUGgq6VV6R8&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <a href="https://maps.app.goo.gl/6okcT2xUGgq6VV6R8" target="_blank" class="inline-block mt-8 px-10 py-4 bg-theme-gold text-theme-dark font-display text-sm tracking-[0.2em] uppercase font-bold rounded-full hover:bg-theme-goldlight transition-colors duration-300 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                Get Directions
+            </a>
+        </section>
+
+        <!-- ================= RSVP (GOOGLE FORM) ================= -->
+        <section class="max-w-3xl mx-auto my-24 relative z-20 px-4">
+            <div class="bg-theme-brown/80 border border-theme-gold/30 rounded-3xl p-6 md:p-10 shadow-2xl backdrop-blur-md">
+                <div class="text-center mb-8">
+                    <h3 class="font-display text-3xl text-theme-gold mb-2 uppercase tracking-widest">RSVP</h3>
+                    <p class="font-serif italic text-theme-cream/80">Please let us know if you can make it</p>
+                </div>
+
+                <!-- Google Form Iframe -->
+                <div class="w-full overflow-hidden rounded-xl min-h-[500px]">
+                    <!-- Replace YOUR_FORM_ID with actual Google form ID -->
+                    <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= THANK YOU FOOTER ================= -->
+        <footer class="mt-32 pb-24 text-center relative z-20 px-4">
+            <h3 class="font-script text-6xl md:text-8xl text-theme-goldlight mb-6 drop-shadow-lg">Thank You</h3>
+            <p class="font-sans text-theme-cream/70 text-sm md:text-base max-w-lg mx-auto leading-relaxed mb-8">
+                We sincerely appreciate your prayers and blessings. We look forward to celebrating this joyful double occasion with you.
+            </p>
+            
+            <div class="flex flex-col items-center justify-center gap-2 mb-8">
+                <p class="font-display tracking-[0.2em] text-theme-gold text-xs uppercase">Farhawn & Ayaman</p>
+                <div class="w-12 h-px bg-theme-gold/50"></div>
+                <p class="font-display tracking-[0.2em] text-theme-gold text-xs uppercase">Sana & Allauddin</p>
+            </div>
+
+            <!-- Decorative Flourish -->
+            <svg class="w-48 h-12 mx-auto opacity-70" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 15 Q 30 0, 50 15 T 90 15" stroke="#D4AF37" stroke-width="1" fill="transparent"/>
+                <circle cx="50" cy="15" r="3" fill="#D4AF37"/>
+                <circle cx="20" cy="15" r="1.5" fill="#F9E596"/>
+                <circle cx="80" cy="15" r="1.5" fill="#F9E596"/>
+            </svg>
+        </footer>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC                           -->
+    <!-- ========================================== -->
+    <script>
+        // 1. GENERATE BOKEH / GOLD DUST PARTICLES
+        const generateBokeh = () => {
+            const container = document.getElementById('bokeh-container');
+            const particleCount = 30; // Adjust for performance vs visual richness
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Randomize properties
+                const size = Math.random() * 15 + 5; // 5px to 20px
+                const left = Math.random() * 100; // 0% to 100%
+                const duration = Math.random() * 15 + 10; // 10s to 25s
+                const delay = Math.random() * 20; // 0s to 20s
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `-${delay}s`; // Negative delay so they start immediately spread out
+                
+                container.appendChild(particle);
+            }
+        };
+
+        // 2. SCROLL CURTAIN LOGIC
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // Open completely after scrolling 80% of window height
+            const threshold = windowHeight * 0.8; 
+            let progress = Math.min(scrollY / threshold, 1);
+            
+            document.documentElement.style.setProperty('--scroll-progress', progress);
+
+            // Overlay opacity
+            const overlay = document.getElementById('intro-overlay');
+            if(overlay) {
+                overlay.style.opacity = Math.max(1 - (progress * 2), 0);
+            }
+        };
+
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // 3. COUNTDOWN LOGIC (Dec 27, 2026, 20:00:00)
+        const weddingDate = new Date(2026, 11, 27, 20, 0, 0).getTime(); // Note: Month is 0-indexed (11 = Dec)
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown-grid').style.display = 'none';
+                document.getElementById('countdown-expired').style.display = 'block';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        };
+        setInterval(updateTimer, 1000);
+
+        // 4. SCRATCH CARD LOGIC (Heart Shape)
+        const initScratchCard = () => {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const container = document.getElementById('scratch-container');
+            
+            // Setup sizing
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Clear any previous drawings
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw Golden Heart
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#AA8C2C');
+            gradient.addColorStop(0.5, '#F9E596');
+            gradient.addColorStop(1, '#D4AF37');
+            
+            ctx.fillStyle = gradient;
+            
+            // Draw the heart path
+            ctx.beginPath();
+            const topCurveHeight = height * 0.3;
+            ctx.moveTo(width / 2, topCurveHeight);
+            ctx.bezierCurveTo(width / 2, 0, 0, 0, 0, height * 0.4);
+            ctx.bezierCurveTo(0, height * 0.75, width / 2, height * 0.95, width / 2, height);
+            ctx.bezierCurveTo(width / 2, height * 0.95, width, height * 0.75, width, height * 0.4);
+            ctx.bezierCurveTo(width, 0, width / 2, 0, width / 2, topCurveHeight);
+            ctx.closePath();
+            ctx.fill();
+
+            // Overlay Text on Heart
+            ctx.fillStyle = '#240003'; // Deep maroon
+            ctx.font = 'bold 18px "Cinzel", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('Scratch to Reveal', width / 2, height / 2 - 15);
+
+            // Calculate initial opaque pixels to accurately determine scratch completion percentage
+            const initialImgData = ctx.getImageData(0, 0, width, height).data;
+            let initialOpaque = 0;
+            for (let i = 3; i < initialImgData.length; i += 4) {
+                if (initialImgData[i] > 0) initialOpaque++;
+            }
+
+            let isDrawing = false;
+            let isScratched = false;
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            };
+
+            const scratch = (e) => {
+                if (!isDrawing || isScratched) return;
+                if (e.cancelable) e.preventDefault(); // crucial for mobile touch
+                
+                const pos = getPos(e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 25, 0, Math.PI * 2); // 25px brush
+                ctx.fill();
+                
+                checkScratched();
+            };
+
+            const checkScratched = () => {
+                const imgData = ctx.getImageData(0, 0, width, height).data;
+                let currentOpaque = 0;
+                for (let i = 3; i < imgData.length; i += 4) {
+                    if (imgData[i] > 0) currentOpaque++;
+                }
+                
+                // If less than 40% of the original heart remains, reveal completely
+                if (currentOpaque < initialOpaque * 0.4) { 
+                    isScratched = true;
+                    canvas.style.opacity = '0';
+                    setTimeout(() => canvas.style.pointerEvents = 'none', 1000);
+                }
+            };
+
+            // Event Listeners
+            canvas.onmousedown = (e) => { isDrawing = true; scratch(e); };
+            canvas.onmousemove = scratch;
+            window.addEventListener('mouseup', () => { isDrawing = false; });
+
+            canvas.ontouchstart = (e) => { isDrawing = true; scratch(e); };
+            canvas.ontouchmove = scratch;
+            window.addEventListener('touchend', () => { isDrawing = false; });
+        };
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            generateBokeh();
+            handleScroll();
+            updateTimer();
+            // Slight delay for scratch card to ensure layout paints properly
+            setTimeout(initScratchCard, 100); 
+        });
+
+        // Re-init scratch canvas size on resize
+        window.addEventListener('resize', () => {
+            if(document.getElementById('scratch-canvas').style.opacity !== '0') {
+                initScratchCard();
+            }
+        });
+    </script>
+</body>
+</html>
